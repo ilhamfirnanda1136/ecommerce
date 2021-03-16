@@ -1,0 +1,1 @@
+<button data-id="{{$model->id}}" class="btn-primary btn-sm btn-edit"><i class="fa fa-edit"></i></button>
