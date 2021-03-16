@@ -19,8 +19,21 @@ Route::post('logout',[AuthController::class,'logout'])->name('logout');
 
 /* Authentication Customer */
 Route::get('login/customer',[AuthController::class,'indexLoginCustomer']);
+Route::post('login/customer',[AuthController::class,'processLoginCustomer'])->name('login.customer');
 Route::get('register/customer',[AuthController::class,'indexRegisterCustomer']);
+Route::post('register/customer',[AuthController::class,'processRegisterCustomer'])->name('register.customer');
+Route::get('logout/customer',[AuthController::class,'logoutCustomer']);
 
+/* customer dashboard */
+Route::middleware(['customer'])->group(function () {
+    
+    /* Dashboard */
+    Route::get('home/customer',[homeController::class,'indexCustomer']);
+
+
+});
+
+/* admin dashboard */
 Route::middleware(['auth'])->group(function () {
     /* Dashboard */
     Route::get('home',[homeController::class,'index'])->name('home');

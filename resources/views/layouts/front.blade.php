@@ -46,13 +46,11 @@
 <script src="{{asset('asset/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js')}}"></script>
 <script src="{{asset('asset/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('asset/dist/js/demo.js')}}"></script>
-<script src="{{asset('asset/plugins/datatables/jquery.dataTables.js')}}"></script>
-<script src="{{asset('asset/plugins/datatables/dataTables.bootstrap4.js')}}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="{{asset('asset/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('asset/plugins/bootstrap/js/bootstrap-datetimepicker.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{asset('js/input.js')}}"></script>
   @yield('footer')
   </body>
 </html>

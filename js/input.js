@@ -13,6 +13,7 @@ function matikanLoading()
     $('#loader').hide();
     $('.div-loading').removeClass('background-load');
 }
+
 function formatAngka(angka)
 {
 	 var reverse = angka.toString().split('').reverse().join(''),
