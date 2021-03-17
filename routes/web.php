@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\{AuthController};
 
-use App\Http\Controllers\{homeController,produkController};
+use App\Http\Controllers\{
+    homeController,produkController,customerController
+};
 
 
 Route::get('/', function () {
@@ -29,6 +31,11 @@ Route::middleware(['customer'])->group(function () {
     
     /* Dashboard */
     Route::get('home/customer',[homeController::class,'indexCustomer']);
+
+
+    /* Profile */
+    Route::get('customer/profile',[customerController::class,'profileCustomer']);
+    Route::post('customer/profile',[customerController::class,'profileCustomerUpdate']);
 
 
 });

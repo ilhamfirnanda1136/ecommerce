@@ -81,7 +81,7 @@
                                 id="btn-register"><i class="fa fa-cog"></i> Sign Up</button>
                         </div>
                      </div>
-                </form>
+                    </form>
             </div>
         </div>
     </div>

@@ -19,12 +19,49 @@
                 @endforeach
               </div>
             </li>
+            @if(!Session::has('customer'))
             <li class="nav-item active">
               <a class="btn btn-primary btn-md" href="{{url("login/customer")}}">Sign In</a>
             </li>
             <li class="nav-item">
               <a class="btn btn-warning btn-md" href="{{url("register/customer")}}">Sign Up</a>
             </li>
+            
+            @else
+             <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fa fa-history"></i></a>
+            </li>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown"
+                        aria-expanded="false">
+                        <?php
+                            if(Session::get('customer')->avatar == null) {
+                                $foto = url('images/guest.png');
+                            } else {
+                                $foto =url('images/avatar/'.Session::get('customer')->avatar);
+                            }
+                        ?>
+                        <img class="img-xs rounded-circle" src="{{$foto}}"
+                            alt="Profile image" width="40"> </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                        <div class="dropdown-header text-center">
+                            <img class="img-md rounded-circle" src="{{$foto}}"
+                                alt="Profile image" width="40">
+                            <p class="mb-1 mt-3 font-weight-semibold" >{{ Session::get('customer')->nama }}</p>
+                            <p class="font-weight-light text-muted mb-0">{{ Session::get('customer')->email }}</p>
+                        </div>
+                        <a href="{{url('customer/profile')}}" class="dropdown-item"><i
+                                class="dropdown-item-icon mdi mdi-account-outline text-primary"></i> My Profile</a>
+                        <a href="{{url('customer/logout')}}" class="dropdown-item" ><i class="dropdown-item-icon mdi mdi-power text-primary"></i>Sign
+                            Out</a>
+                    </div>
+                </li>
+            </ul>
+            @endif
           </ul>
         </div>
     </div>

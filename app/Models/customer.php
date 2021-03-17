@@ -14,4 +14,8 @@ class customer extends Model
 
     protected $fillable = ['nama','alamat','uuid','email','username','password','gender','kabupaten_id','provinsi_id','kode_pos','no_telp'];
     
+    public function kabupaten()
+    {
+        return $this->belongsTo(kabupaten::class);
+    }
 }

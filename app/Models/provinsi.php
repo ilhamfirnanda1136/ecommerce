@@ -9,4 +9,8 @@ class provinsi extends Model
 {
     use HasFactory;
     protected $table = 'provinsi';
+    public function kabupaten()
+    {
+        return $this->hasMany(kabupaten::class);
+    }
 }
