@@ -12,7 +12,7 @@
                             if(Session::get('customer')->avatar == null) {
                                 $foto = url('images/guest.png');
                             } else {
-                                $foto =url('images/avatar/'.Session::get('customer')->avatar);
+                                $foto =url('images/customer/'.Session::get('customer')->avatar);
                             } 
                         ?>
                     <center>
@@ -21,7 +21,7 @@
                             <button class="btn btn-md btn-warning" data-id="" id="btn-update"><i class="fa fa-camera"></i></button>
                         </div>
                     </center>
-                     <form action="" method="post" id="formRegister">
+                     <form action="" method="post" id="formProfile">
                          @csrf
                         <div class="row">
                             <div class="form-group col-md-6 ">
@@ -103,6 +103,7 @@
     <div class="modal-dialog">
      <form action="" method="post" id="formUpload"  enctype="multipart/form-data" onsubmit="event.preventDefault()">
          <div class="modal-content">
+             @csrf
            <div class="modal-header">
              <h5 class="modal-title" id="exampleModalLabel">Update Foto</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -129,31 +130,24 @@
 @stop
 @section('footer')
 <script>
+    const url = "{{url('')}}";
     $(document).ready(function(){
         $('body').on('click','#btn-update',function(){
-            const id = $(this).data('id');
-            $.ajax({
-                url:"{{url('detail/member')}}",
-                method:"GET",
-                data:{
-                    id:id
-                },
-                dataType:'JSON',
-                success:function(datas) {
-                    const data = datas.member;
-                    $('#id').val(id);
-                    if(data.foto != '')
-                    {
-                        $('#foto-update').html(`<img src="http://dpd.asppi.or.id/foto/${data.foto}" width="120px">`);
-                    } else {
-                        $('#foto-update').html(`<img src="{{url('images/noimage.jpg')}}" width="120px">`);
-                    }
-                    $('#modal-foto').modal({backdrop:'static'});
-                }
-            })
+            const avatar = "{{Session::get('customer')->avatar}}";
+            const id = "{{Session::get('customer')->id}}";
+            console.log(avatar);
+            $('#id').val(id);
+            if(avatar != '')
+            {
+                $('#foto-update').html(`<img src="${url}/images/customer/${avatar}" width="120px">`);
+            } else {
+                $('#foto-update').html(`<img src="{{url('images/guest.png')}}" width="120px">`);
+            }
+            $('#modal-foto').modal({backdrop:'static'});
         });
 
         $('#simpan-update').click(function(){
+            const button = $('#simpan-update');
             let form = $('#formUpload')[0];
             let formData = new FormData(form);
             $.ajax({
@@ -163,17 +157,19 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                url: "https://dpd.asppi.or.id/updatefoto.php",
+                url: "{{url('update/avatar')}}",
                 beforeSend: function () {
-                  loading();
+                    button.attr("disabled", 'disabled');
+                    button.text('Loading.....');
                 },
                 success: function (data) {
-                    matikanLoading();
+                    button.removeAttr('disabled');
+                    button.html('Save changes');
                     if(data.status == 'success') {
                         $('#modal-foto').modal('hide');
                         swal({
                             title: "Pesan!",
-                            text: data.messages,
+                            text: data.message,
                             icon: "success",
                         }).then(function(){
                             location.reload();
@@ -181,7 +177,7 @@
                     } else {
                         swal({
                             title: "Pesan!",
-                            text: data.messages,
+                            text: data.message,
                             icon: "error",
                         })
                     }

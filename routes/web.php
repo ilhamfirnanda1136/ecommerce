@@ -36,7 +36,7 @@ Route::middleware(['customer'])->group(function () {
     /* Profile */
     Route::get('customer/profile',[customerController::class,'profileCustomer']);
     Route::post('customer/profile',[customerController::class,'profileCustomerUpdate']);
-
+    Route::post('update/avatar',[customerController::class,'updateAvatar']);
 
 });
 
@@ -62,6 +62,10 @@ Route::middleware(['auth'])->group(function () {
 
     /* Banner Produk */
     Route::get('banner',[produkController::class,'indexBanner']);
+
+    /* Pelanggan */
+    Route::get('pelanggan',[customerController::class,'index']);
+    Route::get('pelanggan/detail/{uuid}',[customerController::class,'detailCustomer']);
     
 });
 

@@ -33,7 +33,7 @@
            </a>
          </li>
          <li class="nav-item">
-          <a href="{{url('home')}}" class="nav-link">
+          <a href="{{url('pelanggan')}}" class="nav-link {{request()->segment(1)=='pelanggan'? 'active' :''}}">
            <i class="nav-icon fa fa-users"></i>
             <p>
              Pelanggan

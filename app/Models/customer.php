@@ -18,4 +18,8 @@ class customer extends Model
     {
         return $this->belongsTo(kabupaten::class);
     }
+    public function provinsi()
+    {
+        return $this->belongsTo(provinsi::class);
+    }
 }

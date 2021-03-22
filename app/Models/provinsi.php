@@ -13,4 +13,8 @@ class provinsi extends Model
     {
         return $this->hasMany(kabupaten::class);
     }
+    public function customer()
+    {
+        return $this->hasMany(customer::class);
+    }
 }

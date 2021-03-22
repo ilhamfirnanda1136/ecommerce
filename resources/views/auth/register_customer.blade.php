@@ -103,7 +103,6 @@
             button.removeAttr('disabled');
             button.html('<i class="fa fa-cog"></i> Sign Up');
             const {data} = datas;
-            console.log(data);
             if ($.isEmptyObject(data.errors)) {
                 $.each(data.success, function (key) {
                     hapusvalidasi(key);
@@ -149,9 +148,9 @@
             .then(res => res.json())
             .then(data => {
                 if (data.status == 404) {
-                     $('#kabupaten_id').append($('<option>').text('Data tidak di temukan').attr('value', 'Data tidak di temukan'));
+                    $('#kabupaten_id').append($('<option>').text('Data tidak di temukan').attr('value', 'Data tidak di temukan'));
                 } else {
-                      $("#kabupaten_id").html('');
+                    $("#kabupaten_id").html('');
                     data.kabupaten.map(kabupaten => {
                         $('#kabupaten_id').append($('<option>').text(kabupaten.nama_kabupaten).attr('value', kabupaten.id));
                     });

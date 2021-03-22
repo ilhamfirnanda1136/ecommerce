@@ -3,7 +3,7 @@
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="{{url('')}}">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,7 +42,7 @@
                             if(Session::get('customer')->avatar == null) {
                                 $foto = url('images/guest.png');
                             } else {
-                                $foto =url('images/avatar/'.Session::get('customer')->avatar);
+                                $foto =url('images/customer/'.Session::get('customer')->avatar);
                             }
                         ?>
                         <img class="img-xs rounded-circle" src="{{$foto}}"
@@ -56,7 +56,7 @@
                         </div>
                         <a href="{{url('customer/profile')}}" class="dropdown-item"><i
                                 class="dropdown-item-icon mdi mdi-account-outline text-primary"></i> My Profile</a>
-                        <a href="{{url('customer/logout')}}" class="dropdown-item" ><i class="dropdown-item-icon mdi mdi-power text-primary"></i>Sign
+                        <a href="{{url('logout/customer')}}" class="dropdown-item" ><i class="dropdown-item-icon mdi mdi-power text-primary"></i>Sign
                             Out</a>
                     </div>
                 </li>

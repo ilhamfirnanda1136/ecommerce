@@ -52,5 +52,14 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{asset('js/input.js')}}"></script>
   @yield('footer')
+  <script>
+     @if(Session::has('sukses'))
+       swal({
+              title: "Pesan!",
+              text: "{{Session::get('sukses')}}",
+              icon: "success",
+          });
+      @endif
+  </script>
   </body>
 </html>
