@@ -5,13 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\{AuthController};
 
 use App\Http\Controllers\{
-    homeController,produkController,customerController
+    homeController,produkController,customerController,
+    transaksiController
 };
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[homeController::class,'indexCustomer']);
 
 
 /* Authentication Admin */
@@ -26,13 +25,17 @@ Route::get('register/customer',[AuthController::class,'indexRegisterCustomer']);
 Route::post('register/customer',[AuthController::class,'processRegisterCustomer'])->name('register.customer');
 Route::get('logout/customer',[AuthController::class,'logoutCustomer']);
 
+/* Shopping */
+Route::get('produk/add/cart/{uuid}',[transaksiController::class,'addCart']);
+Route::get('produk/view/{uuid}',[transaksiController::class,'viewProduk']);
+
+/* Dashboard */
+Route::get('home/customer',[homeController::class,'indexCustomer']);
+Route::get('cari/{merk}',[homeController::class,'cariProduk']);
+
 /* customer dashboard */
 Route::middleware(['customer'])->group(function () {
     
-    /* Dashboard */
-    Route::get('home/customer',[homeController::class,'indexCustomer']);
-
-
     /* Profile */
     Route::get('customer/profile',[customerController::class,'profileCustomer']);
     Route::post('customer/profile',[customerController::class,'profileCustomerUpdate']);
@@ -66,7 +69,7 @@ Route::middleware(['auth'])->group(function () {
     /* Pelanggan */
     Route::get('pelanggan',[customerController::class,'index']);
     Route::get('pelanggan/detail/{uuid}',[customerController::class,'detailCustomer']);
-    
+
 });
 
 
