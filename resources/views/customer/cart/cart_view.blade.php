@@ -106,7 +106,7 @@
                 var cekedTable = $('#checked-table-'+number);
                 var totalInc = 0;
                 var quantity = parseInt($(this).siblings('.quantity-stok').text());
-                if(stok < quantity) {
+                if(stok <= quantity) {
                      swal({
                         title: "Peringatan",
                         text: "Stok produk tidak cukup",
