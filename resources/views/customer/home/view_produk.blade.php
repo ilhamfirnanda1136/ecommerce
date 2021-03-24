@@ -2,7 +2,7 @@
 @section('header')
 @stop
 @section('content')
-<div class="row mb-5" >
+<div class="row mb-5">
     <div class="col-md-4">
         <img src="{{asset('images/produk')}}/{{$produk->gambar}}" alt="" >
     </div>
@@ -15,7 +15,11 @@
         <p>{{$produk->spesifikasi}}</p>
         Keterangan <br><hr>
         <p>{{$produk->keterangan}}</p>
-        <button class="btn btn-outline-dark"><i class="fa fa-shopping-cart"></i> Tambah ke Keranjang</button>
+          @if($produk->stok > 0)
+        <a href="{{url('produk/add/cart/')}}/{{$produk->uuid}}" class="btn btn-outline-dark"><i class="fa fa-shopping-cart"></i> Tambah ke Keranjang</a>
+        @else
+        <span class="badge badge-secondary">Stok habis</span>
+        @endif
     </div>
 </div>
 @endsection

@@ -30,9 +30,9 @@
     @yield('header')
   </head>
   <body>
-    @include('layouts.include.header_front');
+    @include('layouts.include.header_front')
 
-    <div class="container">
+    <div class="container" style="margin-top:20px;">
       @yield('content')
     </div>
     <!-- Optional JavaScript; choose one of the two! -->
@@ -59,6 +59,9 @@
               text: "{{Session::get('sukses')}}",
               icon: "success",
           });
+      @endif
+      @if(Session::has('suksesCart'))
+          toastr.success("{{Session::get('suksesCart')}}", 'Berhasil!')
       @endif
   </script>
   </body>

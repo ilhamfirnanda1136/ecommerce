@@ -26,12 +26,13 @@ Route::post('register/customer',[AuthController::class,'processRegisterCustomer'
 Route::get('logout/customer',[AuthController::class,'logoutCustomer']);
 
 /* Shopping */
-Route::get('produk/add/cart/{uuid}',[transaksiController::class,'addCart']);
 Route::get('produk/view/{uuid}',[transaksiController::class,'viewProduk']);
 
 /* Dashboard */
 Route::get('home/customer',[homeController::class,'indexCustomer']);
 Route::get('cari/{merk}',[homeController::class,'cariProduk']);
+
+Route::get('produk/add/cart/{uuid}',[transaksiController::class,'addCart']);
 
 /* customer dashboard */
 Route::middleware(['customer'])->group(function () {
@@ -40,6 +41,10 @@ Route::middleware(['customer'])->group(function () {
     Route::get('customer/profile',[customerController::class,'profileCustomer']);
     Route::post('customer/profile',[customerController::class,'profileCustomerUpdate']);
     Route::post('update/avatar',[customerController::class,'updateAvatar']);
+    
+    /* cart */
+    Route::get('cart',[transaksiController::class,'indexCart']);
+    Route::get('hapus/cart/{id}',[transaksiController::class,'hapusCart']);
 
 });
 

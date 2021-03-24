@@ -21,8 +21,12 @@
                             <h4 class="card-title text-center">{{$m->nama_produk}}</h4>
                             <h5 class="card-title">Merk : {{$m->merk->nama_merk}}</h5>
                             <h5 class="card-title">Harga : Rp.{{number_format($m->harga,0,'','.')}}</h5>
-                            <a href="{{url('produk/add/cart/')}}/{{$m->uuid}}" class="btn btn-sm btn-danger btn-cart" data-id="{{$m->id}}"><i
-                                    class="fa fa-shopping-cart"></i></a>
+                            <h5 class="card-title">Stok : {{$m->stok}} </h5>
+                            @if($m->stok > 0)
+                                 <a href="{{url('produk/add/cart/')}}/{{$m->uuid}}" class="btn btn-sm btn-danger btn-cart" data-id="{{$m->id}}"><i class="fa fa-shopping-cart"></i></a>
+                            @else
+                                <span class="badge badge-secondary">Stok habis</span>
+                            @endif
                             <a href="{{url('produk/view/')}}/{{$m->uuid}}" class="btn btn-sm btn-primary btn-detail" data-id="{{$m->id}}"><i
                                     class="fa fa-eye"></i></i></a>
                         </div>

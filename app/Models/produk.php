@@ -20,4 +20,9 @@ class produk extends Model
     {
         return $this->hasMany(banner::class);
     }
+
+    public function cart()
+    {
+        return $this->hasMany(cart::class);
+    }
 }

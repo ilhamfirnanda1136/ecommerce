@@ -1,5 +1,10 @@
 <?php
   $merk = \App\Models\Merk::orderBy('nama_merk')->get();
+  if(Session::has('customer')) {
+    $cartTotal = \App\Models\cart::where('customer_id',Session::get('customer')->id)
+                                  ->where('status',0)
+                                  ->count();
+  }
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -33,10 +38,10 @@
             
             @else
              <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i></a>
+              <a class="nav-link" href="{{url('cart')}}"><i class="fa fa-shopping-cart"></i><span class="badge badge-danger navbar-badge">{{$cartTotal>0 ? $cartTotal : ''}}</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-history"></i></a>
+              <a class="nav-link" href="#"><i class="fa fa-truck"></i><span class="badge badge-danger navbar-badge"></span></a>
             </li>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown ">

@@ -22,4 +22,8 @@ class customer extends Model
     {
         return $this->belongsTo(provinsi::class);
     }
+    public function cart()
+    {
+        return $this->hasMany(cart::class);
+    }
 }
