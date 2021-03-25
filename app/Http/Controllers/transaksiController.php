@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\{produk,customer,merk,cart};
+use App\Models\{produk,customer,merk,cart,transaksi};
 
-use Validator,DB,Session;
+use Validator,DB,Session,Carbon;
 
 class transaksiController extends Controller
 {
@@ -61,5 +61,43 @@ class transaksiController extends Controller
         $cart = cart::findOrFail($id);
         $cart->delete();
         return redirect()->back()->with('sukses','anda telah menghapus produk di cart anda');
+    }
+
+    public function orderConfirmation(Request $request)
+    {
+        $cekout = $request->cekbox;
+        $idCart = [];
+        for ($i=0; $i < count($cekout) ; $i++) { 
+            $cart   = cart::findOrFail($cekout[$i]);
+            $stok   = $request['stok-form-'.$cekout[$i]];
+            $produk = produk::findOrFail($cart->produk_id);
+            if($cart->jumlah_beli != $stok ) {
+                if($cart->jumlah_beli > $stok) {
+                    $total  = $cart->total_harga / $stok ;
+                    $cart->total_harga = $total;
+                } else {
+                    $total  = $produk->harga * $stok ;
+                    $cart->total_harga = $total;
+                }
+                $cart->jumlah_beli = $stok ;
+            }
+            $produk->stok -= $stok;
+            $produk->save(); 
+            $cart->status = 1;
+            $cart->save();
+            array_push($idCart,$cart->id);
+        }
+        $transaksi = new transaksi();
+        $transaksi->alamat_pengiriman = $request->alamat_pengiriman;
+        $transaksi->pesan = $request->pesan;
+        $transaksi->customer_id = Session::get('customer')->id;
+        $transaksi->tanggal_transaksi = Carbon\Carbon::now();
+        $transaksi->status = 0;
+        $transaksi->save();
+        $cartMany = cart::whereIn('id',$idCart)->get();
+        foreach ($cartMany as $c) {
+            $transaksi->cart()->attach($c->id);
+        }
+        return redirect('/')->with('sukses','anda telah berhasil memesan produk silahkan cek di menu pesanan anda');
     }
 }

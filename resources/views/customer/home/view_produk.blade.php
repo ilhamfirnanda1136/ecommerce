@@ -16,7 +16,7 @@
         Keterangan <br><hr>
         <p>{{$produk->keterangan}}</p>
           @if($produk->stok > 0)
-        <a href="{{url('produk/add/cart/')}}/{{$produk->uuid}}" class="btn btn-outline-dark"><i class="fa fa-shopping-cart"></i> Tambah ke Keranjang</a>
+        <a href="{{url('produk/add/cart/')}}/{{$produk->uuid}}" class="btn btn-outline-dark"><i class="fa fa-cart-plus"></i> Tambah ke Keranjang</a>
         @else
         <span class="badge badge-secondary">Stok habis</span>
         @endif

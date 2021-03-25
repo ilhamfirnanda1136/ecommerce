@@ -4,6 +4,9 @@
     $cartTotal = \App\Models\cart::where('customer_id',Session::get('customer')->id)
                                   ->where('status',0)
                                   ->count();
+    $transaksiTotal = \App\Models\transaksi::where('customer_id',Session::get('customer')->id)
+                                  ->where('status',0)
+                                  ->count();
   }
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -41,7 +44,7 @@
               <a class="nav-link" href="{{url('cart')}}"><i class="fa fa-shopping-cart"></i><span class="badge badge-danger navbar-badge">{{$cartTotal>0 ? $cartTotal : ''}}</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-truck"></i><span class="badge badge-danger navbar-badge"></span></a>
+              <a class="nav-link" href="#"><i class="fa fa-truck"></i><span class="badge badge-danger navbar-badge">{{$transaksiTotal>0 ? $transaksiTotal : ''}}</span></a>
             </li>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown ">

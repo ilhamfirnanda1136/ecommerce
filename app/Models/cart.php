@@ -21,4 +21,9 @@ class cart extends Model
     {
         return $this->belongsTo(produk::class);
     }
+
+    public function transaksi()
+    {
+        return $this->belongsToMany(transaksi::class);
+    }
 }

@@ -46,6 +46,9 @@ Route::middleware(['customer'])->group(function () {
     Route::get('cart',[transaksiController::class,'indexCart']);
     Route::get('hapus/cart/{id}',[transaksiController::class,'hapusCart']);
 
+    /* Order */
+    Route::post('konfirmasi/order',[transaksiController::class,'orderConfirmation'])->name('konfirmasi.order');
+
 });
 
 /* admin dashboard */
