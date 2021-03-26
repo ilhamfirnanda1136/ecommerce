@@ -114,7 +114,7 @@
                 $('#alamat_pengiriman').attr("readonly","true");
                 $('#alamat_pengiriman').removeAttr("required");
                 $('#alamat_pengiriman').val('');
-                $('#alamat_pengiriman').attr("placeholder","anda mengunakan alamat default");
+                $('#alamat_pengiriman').attr("placeholder","{{Session::get('customer')->alamat}}");
             } else {
                 $('#alamat_pengiriman').removeAttr("readonly");
                 $('#alamat_pengiriman').attr("required","true");

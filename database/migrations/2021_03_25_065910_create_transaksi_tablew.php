@@ -16,6 +16,7 @@ class CreateTransaksiTablew extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');
+            $table->string('no_transaksi')->unique();
             $table->text('alamat_pengiriman')->nullable();
             $table->text('pesan')->nullable();
             $table->timestamp('tanggal_transaksi');

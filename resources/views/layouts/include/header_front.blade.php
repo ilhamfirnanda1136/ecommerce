@@ -16,7 +16,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <form class="form-inline" method="get" action="{{url('')}}">
-          <input class="form-control mr-sm-2" name="nama" type="search" placeholder="Cari Produk" aria-label="Search">
+          <input class="form-control mr-sm-2" name="nama" type="search" placeholder="Cari Produk" aria-label="Search" >
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cari</button>
         </form>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -41,10 +41,10 @@
             
             @else
              <li class="nav-item">
-              <a class="nav-link" href="{{url('cart')}}"><i class="fa fa-shopping-cart"></i><span class="badge badge-danger navbar-badge">{{$cartTotal>0 ? $cartTotal : ''}}</span></a>
+              <a class="nav-link" href="{{url('cart')}}"><i class="fa fa-shopping-cart"></i><span class="badge badge-danger navbar-badge">{{$cartTotal > 0 ? $cartTotal : ''}}</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-truck"></i><span class="badge badge-danger navbar-badge">{{$transaksiTotal>0 ? $transaksiTotal : ''}}</span></a>
+              <a class="nav-link" href="{{url('transaksi')}}"><i class="fa fa-truck"></i><span class="badge badge-danger navbar-badge">{{$transaksiTotal > 0 ? $transaksiTotal : ''}}</span></a>
             </li>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown ">

@@ -1,0 +1,110 @@
+
+.judul {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.child-judul {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.card {
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.form-control {
+    background-color: #f2f2f2 !important;
+}
+
+/*Tabs*/
+.nav-tabs {
+    border: none;
+}
+
+.nav-tabs .nav-link {
+    color: #1f766c;
+}
+
+/* .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+  border:none !important;'
+  border-color: none;
+} */
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    border: none;
+}
+
+.project-tab #tabs {
+    background: #1f766c;
+    color: #eee;
+}
+
+.project-tab #tabs h6.section-title {
+    color: #eee;
+}
+
+.project-tab #tabs .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #ffffff;
+    background-color: #F35C5C;
+    border-color: transparent transparent #F35C5C;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.project-tab #tabs .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link {
+    color: #ffffff;
+    background-color: #1f766c;
+    border-radius: 0%;
+    border-color: transparent transparent #266417;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.project-tab .nav-link {
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #1f766c;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.project-tab .nav-link:hover {
+    border: none;
+}
+
+.project-tab thead {
+    background: #f3f3f3;
+    color: #333;
+}
+
+.project-tab a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+.btn-search,
+.btn-search:hover {
+    color: #ffffff;
+    background-color: #1f766c;
+}
+
+.gambar {
+    height: 150px;
+    width: 200px;
+    margin: 0px 100px;
+}
+
+/* dekstop */
+@media (min-width: 992px) {
+
+    .gambar {
+        height: 150px;
+        width: 150px;
+        margin-left: 350px;
+    }
+}
