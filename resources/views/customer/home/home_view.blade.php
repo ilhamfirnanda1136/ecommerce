@@ -1,4 +1,4 @@
-@extends('layouts.front',['title'=>'Beranda Jogjess cell e-commerce'])
+@extends('layouts.front',['title'=>'Beranda Jogjest cell e-commerce'])
 @section('header')
 @stop
 @section('content')

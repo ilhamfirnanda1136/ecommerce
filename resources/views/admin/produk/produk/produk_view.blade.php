@@ -1,4 +1,4 @@
-@extends('layouts.back',['title'=>'produk JogjeCell'])
+@extends('layouts.back',['title'=>'produk Jogjest Cell'])
 @section('content')
 <div class="container-fluid" style="margin-top: -50px;">
     <div class="row">

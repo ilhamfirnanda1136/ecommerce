@@ -110,6 +110,16 @@ class transaksiController extends Controller
 
     public function indexTransaksi()
     {
-        return view('customer.transaksi.transaksi_view');
+        $transaksi = transaksi::where('customer_id',Session::get('customer')->id)
+                                ->where('status',0)->orderBy('id','desc')->get();
+        return view('customer.transaksi.transaksi_view',compact('transaksi'));
+    }
+
+    public function produkAmbil($id)
+    {
+        $transaksi = transaksi::with(['cart' => function($query) {
+            return $query->with(['produk']);
+        }])->where('id',$id)->get();
+        return response()->json(['transaksi'=>$transaksi]);
     }
 }
