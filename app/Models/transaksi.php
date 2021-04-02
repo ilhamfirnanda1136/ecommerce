@@ -14,4 +14,9 @@ class transaksi extends Model
     {
         return $this->belongsToMany(cart::class);
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(customer::class);
+    }
 }

@@ -4,7 +4,7 @@
 @section('content')
 <div class="row mb-5">
     <div class="col-md-4">
-        <img src="{{asset('images/produk')}}/{{$produk->gambar}}" alt="" >
+        <img src="{{asset('images/produk')}}/{{$produk->gambar}}" alt="{{$produk->nama_produk}}" style="width:100%" >
     </div>
     <div class="col-md-6" style="margin-top:50px">
         <h2>{{$produk->nama_produk}}</h2>

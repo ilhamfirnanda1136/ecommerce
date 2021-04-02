@@ -50,7 +50,8 @@ Route::middleware(['customer'])->group(function () {
     Route::get('transaksi',[transaksiController::class,'indexTransaksi']);
     Route::get('transaksi/produk/{id}',[transaksiController::class,'produkAmbil']);
     Route::post('konfirmasi/order',[transaksiController::class,'orderConfirmation'])->name('konfirmasi.order');
-
+    Route::get('transaksi/pdf/{id}',[transaksiController::class,'pdfTransaksi']);
+    Route::post('transaksi/upload/bukti',[transaksiController::class,'uploadBukti']);
 });
 
 /* admin dashboard */
@@ -79,6 +80,14 @@ Route::middleware(['auth'])->group(function () {
     /* Pelanggan */
     Route::get('pelanggan',[customerController::class,'index']);
     Route::get('pelanggan/detail/{uuid}',[customerController::class,'detailCustomer']);
+
+    /* transaksi */
+    Route::prefix('transaksi/admin')->group(function () {
+        
+        /* baru */
+        Route::get('baru',[transaksiController::class,'indexAdminBaru']);
+
+    });
 
 });
 

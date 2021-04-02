@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\{produk,customer,merk,cart,transaksi};
 
-use Validator,DB,Session,Carbon;
+use Validator,DB,Session,Carbon,PDF;
 
 class transaksiController extends Controller
 {
@@ -94,7 +94,7 @@ class transaksiController extends Controller
             }
         }
         else $kode = "JC".date("Y")."00001";
-        $transaksi->alamat_pengiriman = $request->alamat_pengiriman=='' ? Session::get('customer')->alamat : $request->alamat_pengiriman ;
+        $transaksi->alamat_pengiriman = $request->alamat_pengiriman=='' ? Session::get('customer')->alamat : $request->alamat_pengiriman;
         $transaksi->no_transaksi = $kode;
         $transaksi->pesan = $request->pesan;
         $transaksi->customer_id = Session::get('customer')->id;
@@ -121,5 +121,37 @@ class transaksiController extends Controller
             return $query->with(['produk']);
         }])->where('id',$id)->get();
         return response()->json(['transaksi'=>$transaksi]);
+    }
+
+    public function pdfTransaksi($id)
+    {
+        $transaksi = transaksi::with(['cart' => function($query) {
+            return $query->with(['produk']);
+        }])->where('id',$id)->first();
+        $customer = customer::findOrFail(Session::get('customer')->id);
+        $pdf = PDF::loadView('customer.transaksi.pdf', compact(['transaksi','customer']));
+        return $pdf->stream('transaksi.pdf'); 
+    }
+
+    public function uploadBukti(Request $request)
+    {
+        $transaksi = transaksi::findOrFail($request->id);
+        $file = $request->file('foto');
+        $nama_file = "bukti-".date("Y")."-".substr(md5(rand()),0,6).$file->getClientOriginalName();
+        $transaksi->bukti = $nama_file;
+        $file->move('images/bukti/',$nama_file);
+        $transaksi->save();
+        return redirect()->back()->with('sukses','anda telah berhasil mengupload bukti bayar');
+    }
+
+
+    /* admin */
+
+    public function indexAdminBaru()
+    {
+        $transaksi = transaksi::with(['cart' => function($query) {
+            return $query->with(['produk']);
+        },'customer'])->where('status',0)->orderBy('id','desc')->get();
+        return view('admin.transaksi.baru_view',compact('transaksi'));
     }
 }

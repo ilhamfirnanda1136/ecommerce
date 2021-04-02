@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{url('home')}}" class="brand-link">
-      <img src="{{asset('img/logo.png')}}"
+      <img src="{{asset('images/logo.jpeg')}}"
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
            style="opacity: .8">
@@ -14,7 +14,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('images/guest.png')}}" class="elevation-2" alt="User Image" style="width:10px">
+          <img src="{{asset('images/logo.jpeg')}}" class="elevation-2" alt="User Image" style="width:10px">
         </div>
         <div class="info">
           <a href="#" class="d-block">Super Admin</a>
@@ -69,15 +69,36 @@
                   <p>Produk</p>
                 </a>
               </li>
-          </ul>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a href="{{url('home')}}" class="nav-link">
-             <i class="nav-icon fa fa-cart-plus"></i>
+          <li class="nav-item has-treeview {{request()->segment(1)=='transaksi'? 'menu-open' :''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-shopping-cart"></i>
               <p>
-               Transaksi
+                Transaksi
+                <i class="fa fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview active">
+              <li class="nav-item ">
+                <a href="{{url('transaksi/admin/baru')}}" class="nav-link {{request()->segment(3)=='baru' && request()->segment(1)=='transaksi' ? 'active' :''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Baru </p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="{{url('transaksi/admin/terkirim')}}" class="nav-link {{request()->segment(3)=='terkirim' && request()->segment(1)=='transaksi' ? 'active' :''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Terkirim</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="{{url('transaksi/admin/selesai')}}" class="nav-link {{request()->segment(3)=='selesai' && request()->segment(1)=='transaksi' ? 'active' :''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Selesai</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
