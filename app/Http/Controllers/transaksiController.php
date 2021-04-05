@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\{produk,customer,merk,cart,transaksi};
+use App\Models\{produk,customer,merk,cart,transaksi,kirim};
 
 use Validator,DB,Session,Carbon,PDF;
 
@@ -112,7 +112,11 @@ class transaksiController extends Controller
     {
         $transaksi = transaksi::where('customer_id',Session::get('customer')->id)
                                 ->where('status',0)->orderBy('id','desc')->get();
-        return view('customer.transaksi.transaksi_view',compact('transaksi'));
+        $transaksiKirim = transaksi::with(['kirim'])->where('customer_id',Session::get('customer')->id)
+                                ->where('status',2)->orderBy('id','desc')->get();
+        $transaksiSelesai = transaksi::with(['kirim'])->where('customer_id',Session::get('customer')->id)
+                                ->where('status',1)->orderBy('id','desc')->get();
+        return view('customer.transaksi.transaksi_view',compact('transaksi','transaksiKirim','transaksiSelesai'));
     }
 
     public function produkAmbil($id)
@@ -144,6 +148,14 @@ class transaksiController extends Controller
         return redirect()->back()->with('sukses','anda telah berhasil mengupload bukti bayar');
     }
 
+    public function konfirmasiProduk($id)
+    {
+        $transaksi = transaksi::findOrFail($id);
+        $transaksi->status = 1;
+        $transaksi->save();
+        return redirect()->back()->with('sukses','terima kasih telah memesan produk ditoko kami');
+    }
+
 
     /* admin */
 
@@ -153,5 +165,35 @@ class transaksiController extends Controller
             return $query->with(['produk']);
         },'customer'])->where('status',0)->orderBy('id','desc')->get();
         return view('admin.transaksi.baru_view',compact('transaksi'));
+    }
+
+    public function simpanPengirimanBarang(Request $request)
+    {
+        $kirim = new kirim();
+        $kirim->keterangan = $request->keterangan;
+        $kirim->tanggal_sampai = $request->tanggal_sampai;
+        $kirim->status = 0;
+        $kirim->transaksi_id = $request->id;
+        $kirim->save();
+        $transaksi = transaksi::findOrFail($request->id);
+        $transaksi->status = 2;
+        $transaksi->save();
+        return redirect()->back()->with('sukses','anda telah berhasil mengirimkan barang');
+    }
+
+    public function indexAdminKirim()
+    {
+        $transaksi = transaksi::with(['cart' => function($query) {
+            return $query->with(['produk']);
+        },'customer','kirim'])->where('status',2)->orderBy('id','desc')->get();
+        return view('admin.transaksi.kirim_view',compact('transaksi'));
+    }
+
+    public function indexAdminSelesai()
+    {
+        $transaksi = transaksi::with(['cart' => function($query) {
+            return $query->with(['produk']);
+        },'customer','kirim'])->where('status',1)->orderBy('id','desc')->get();
+        return view('admin.transaksi.selesai_view',compact('transaksi'));
     }
 }

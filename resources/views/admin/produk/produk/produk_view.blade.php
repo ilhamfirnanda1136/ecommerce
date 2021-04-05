@@ -124,7 +124,7 @@
 
 <div class="modal fade" id="edit-modal-produk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form method="post" id="formProdukEdit">
                 <div class="modal-header">
@@ -434,7 +434,7 @@
                     $('.gambar').children().remove();
                 } else {
                     $('.gambar').html(`
-                    <img src="{{asset('images/produk/`+data.gambar`')}}" class="float-left edit_gambar" width="70" height="70">
+                    <img src="{{asset('images/produk/`+data.gambar+`')}}" class="float-left edit_gambar" width="70" height="70">
                     `);
                 }
                 $('#edit-modal-produk').modal({backdrop:'static'});

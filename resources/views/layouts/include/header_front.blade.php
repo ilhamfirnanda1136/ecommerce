@@ -5,7 +5,7 @@
                                   ->where('status',0)
                                   ->count();
     $transaksiTotal = \App\Models\transaksi::where('customer_id',Session::get('customer')->id)
-                                  ->where('status',0)
+                                  ->where('status','!=',1)
                                   ->count();
   }
 ?>

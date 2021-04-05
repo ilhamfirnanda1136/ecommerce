@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Transaksi Baru Datang </h3>
+                        <h3 class="card-title">Data Transaksi Sedang dikirim </h3>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -14,14 +14,15 @@
                                 <thead>
                                     <tr>
                                         <th>NO</th>
-                                        <th>NO Transaksi</th>
+                                        <th>No Transaksi</th>
+                                        <th>Tanggal Sampai</th>
+                                        <th>Keterangan Sampai</th>
                                         <th>Nama Customer</th>
                                         <th>Tanggal Transaksi</th>
                                         <th>Alamat Pengiriman</th>
                                         <th>Pesan</th>
                                         <th>Produk</th>
                                         <th>Bukti Bayar</th>
-                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -30,20 +31,15 @@
                                     <tr>
                                         <td>{{$no++}}</td>
                                         <td>{{$t->no_transaksi}}</td>
+                                         <td>{{Helper::formatTanggal($t->kirim[0]->tanggal_sampai)}}</td>
+                                        <td>{{$t->kirim[0]->keterangan}}</td>
                                         <td>{{$t->customer->nama}}</td>
                                         <td>{{$t->created_at->format("d-m-Y")}}</td>
                                         <td>{{$t->alamat_pengiriman == null ? Session::get('customer')->alamat : $t->alamat_pengiriman}}</td>
                                         <td>{{$t->pesan}}</td>
                                         <td><button class="btn btn-md btn-primary btn-produk" data-id="{{$t->id}}">Total Produk</button></td>
                                         <td>
-                                        @if($t->bukti != null)
                                         <a href="{{asset('images/bukti/')}}/{{$t->bukti}}" class="btn btn-md btn-success btn-upload" target="_blank">Bukti Bayar</a>
-                                        @else
-                                        <span class="badge badge-danger">Customer belum Mengupload Bukti Bayar</span>
-                                        @endif
-                                        </td>
-                                        <td>
-                                            <button class="btn-md btn btn-primary btn-konfirmasi" data-id="{{$t->id}}">Konfirmasi Pemesanan serta kirim produk</button>
                                         </td>
                                     </tr>
                                     @endforeach

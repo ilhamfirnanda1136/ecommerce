@@ -51,6 +51,7 @@ Route::middleware(['customer'])->group(function () {
     Route::post('konfirmasi/order',[transaksiController::class,'orderConfirmation'])->name('konfirmasi.order');
     Route::get('transaksi/pdf/{id}',[transaksiController::class,'pdfTransaksi']);
     Route::post('transaksi/upload/bukti',[transaksiController::class,'uploadBukti']);
+    Route::get('transaksi/konfirmasi/{id}',[transaksiController::class,'konfirmasiProduk']);
 });
 
 Route::get('transaksi/produk/{id}',[transaksiController::class,'produkAmbil']);
@@ -88,7 +89,13 @@ Route::middleware(['auth'])->group(function () {
         
         /* baru */
         Route::get('baru',[transaksiController::class,'indexAdminBaru']);
+        Route::post('baru',[transaksiController::class,'simpanPengirimanBarang']);
 
+        /* Kirim */
+        Route::get('terkirim',[transaksiController::class,'indexAdminKirim']);
+
+        /* Selesai */
+        Route::get('selesai',[transaksiController::class,'indexAdminSelesai']);
     });
 
 });

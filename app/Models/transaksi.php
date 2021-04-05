@@ -19,4 +19,9 @@ class transaksi extends Model
     {
         return $this->belongsTo(customer::class);
     }
+
+    public function kirim()
+    {
+        return $this->hasMany(kirim::class);
+    }
 }

@@ -41,31 +41,120 @@
                                                 </thead>
                                                 <tbody>
                                                     @php $no = 1;  @endphp
-                                                    @foreach ($transaksi as $t)
+                                                    @if($transaksi->count() == 0) 
+                                                        <tr>
+                                                            <td colspan="7" align="center">Tidak ada transaksi</td>
+                                                        </tr>
+                                                    @else
+                                                        @foreach ($transaksi as $t)
                                                         <tr>
                                                             <td>{{$no++}}</td>
                                                             <td>{{$t->no_transaksi}}</td>
-                                                            <td>{{$t->created_at->format("d-m-Y")}}</td>
+                                                            <td>{{$t->created_at->format('d-m-Y')}}</td>
                                                             <td>{{$t->alamat_pengiriman == null ? Session::get('customer')->alamat : $t->alamat_pengiriman}}</td>
                                                             <td>{{$t->pesan}}</td>
                                                             <td><button class="btn btn-md btn-primary btn-produk" data-id="{{$t->id}}">Total Produk</button></td>
-                                                            <td> <a href="{{url('transaksi/pdf/')}}/{{$t->id}}" target="_blank" class="btn btn-danger btn-md text-white"><i class="fa fa-download"></i> Download PDF</a>
+                                                            <td> <a href="{{url('transaksi/pdf/')}}/{{$t->id}}" target="_blank" class="btn btn-danger btn-md text-white"><i class="fa fa-download"></i>Laporan</a>
                                                             @if($t->bukti == null)
                                                             <button class="btn btn-md btn-warning btn-upload" data-id="{{$t->id}}" data-transaksi="{{$t->no_transaksi}}"><i class="fa fa-upload"></i> Upload Bukti</button></td>
                                                             @else
                                                             <span class="badge badge-success">Mohon Tunggu Konfirmasi Admin</span>
                                                             @endif
                                                         </tr>
-                                                    @endforeach
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade " id="nav-kirim" role="tabpanel">
-                                        sd
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>NO</th>
+                                                        <th>NO Transaksi</th>
+                                                        <th>Tanggal Sampai</th>
+                                                        <th>Keterangan Sampai</th>
+                                                        <th>Tanggal Transaksi</th>
+                                                        <th>Alamat Pengiriman</th>
+                                                        <th>Pesan</th>
+                                                        <th>Produk</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php $no = 1;  @endphp
+                                                    @if($transaksiKirim->count() == 0) 
+                                                        <tr>
+                                                            <td colspan="9" align="center">Tidak ada transaksi</td>
+                                                        </tr>
+                                                    @else
+                                                        @foreach ($transaksiKirim as $t)
+                                                        <tr>
+                                                            <td>{{$no++}}</td>
+                                                            <td>{{$t->no_transaksi}}</td>
+                                                            <td>{{Helper::formatTanggal($t->kirim[0]->tanggal_sampai)}}</td>
+                                                            <td>{{$t->kirim[0]->keterangan}}</td>
+                                                            <td>{{$t->created_at->format('d-m-Y')}}</td>
+                                                            <td>{{$t->alamat_pengiriman == null ? Session::get('customer')->alamat : $t->alamat_pengiriman}}</td>
+                                                            <td>{{$t->pesan}}</td>
+                                                            <td><button class="btn btn-md btn-primary btn-produk" data-id="{{$t->id}}">Total Produk</button></td>
+                                                            <td> 
+                                                                <a href="{{url('transaksi/pdf/')}}/{{$t->id}}" target="_blank" class="btn btn-danger btn-md text-white"><i class="fa fa-download"></i>Laporan</a>
+                                                                <button class="btn btn-md btn-secondary btn-konfirmasi" data-id="{{$t->id}}" > Konfirmasi Sampai</button>
+                                                            </td>
+                                                          
+                                                        </tr>
+                                                        @endforeach
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade " id="nav-selesai" role="tabpanel">
-                                        sda
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>NO</th>
+                                                        <th>NO Transaksi</th>
+                                                        <th>Tanggal Sampai</th>
+                                                        <th>Keterangan Sampai</th>
+                                                        <th>Tanggal Transaksi</th>
+                                                        <th>Alamat Pengiriman</th>
+                                                        <th>Pesan</th>
+                                                        <th>Produk</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php $no = 1;  @endphp
+                                                    @if($transaksiSelesai->count() == 0) 
+                                                        <tr>
+                                                            <td colspan="9" align="center">Tidak ada transaksi</td>
+                                                        </tr>
+                                                    @else
+                                                        @foreach ($transaksiSelesai as $t)
+                                                        <tr>
+                                                            <td>{{$no++}}</td>
+                                                            <td>{{$t->no_transaksi}}</td>
+                                                            <td>{{Helper::formatTanggal($t->kirim[0]->tanggal_sampai)}}</td>
+                                                            <td>{{$t->kirim[0]->keterangan}}</td>
+                                                            <td>{{$t->created_at->format('d-m-Y')}}</td>
+                                                            <td>{{$t->alamat_pengiriman == null ? Session::get('customer')->alamat : $t->alamat_pengiriman}}</td>
+                                                            <td>{{$t->pesan}}</td>
+                                                            <td><button class="btn btn-md btn-primary btn-produk" data-id="{{$t->id}}">Total Produk</button></td>
+                                                            <td> 
+                                                                <a href="{{url('transaksi/pdf/')}}/{{$t->id}}" target="_blank" class="btn btn-danger btn-md text-white"><i class="fa fa-download"></i>Laporan</a>
+                                                            </td>
+                                                          
+                                                        </tr>
+                                                        @endforeach
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -181,6 +270,25 @@
             $('#title-bayar').text(`Upload Bukti Bayar No transaksi : ${transaksi}`);
             $('#id').val(id);
             $('#modal-foto').modal({backdrop:'static'});
+        });
+
+        /* konfirmasi barang datang */
+        $('body').on('click','.btn-konfirmasi',function(){
+            const id = $(this).data('id');
+            swal({
+              title: "Yakin?",
+              text: "anda yakin ingin mengkonfirmasi produk telah sampai??",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                window.location="{{url('transaksi/konfirmasi/')}}/"+id;
+              } else {
+                swal("Anda membatalkan mengkonfirmasi data");
+              }
+            });
         });
 
     });
