@@ -169,7 +169,7 @@
                     total += parseInt(total_harga);
                 }); 
                 $('#table-produk').html(html);
-                $('#total-nilai').text(`Total Nilai : ${formatAngka(total)}`);
+                $('#total-nilai').text(`Total Harga : ${formatAngka(total)}`);
                 $('#modal-detail').modal({backdrop:'static'});
             });
         })

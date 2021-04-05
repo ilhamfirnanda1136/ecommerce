@@ -20,7 +20,8 @@
                                         <th>Alamat Pengiriman</th>
                                         <th>Pesan</th>
                                         <th>Produk</th>
-                                        <th>Action</th>
+                                        <th>Bukti Bayar</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,12 +35,16 @@
                                         <td>{{$t->alamat_pengiriman == null ? Session::get('customer')->alamat : $t->alamat_pengiriman}}</td>
                                         <td>{{$t->pesan}}</td>
                                         <td><button class="btn btn-md btn-primary btn-produk" data-id="{{$t->id}}">Total Produk</button></td>
-                                        <td> <a href="{{url('transaksi/pdf/')}}/{{$t->id}}" target="_blank" class="btn btn-danger btn-md text-white"><i class="fa fa-download"></i> Download PDF</a>
-                                        @if($t->bukti == null)
-                                        <button class="btn btn-md btn-warning btn-upload" data-id="{{$t->id}}" data-transaksi="{{$t->no_transaksi}}"><i class="fa fa-upload"></i> Upload Bukti</button></td>
+                                        <td>
+                                        @if($t->bukti != null)
+                                        <a href="{{asset('images/bukti/')}}/{{$t->bukti}}" class="btn btn-md btn-success btn-upload" target="_blank">Bukti Bayar</a>
                                         @else
-                                        <span class="badge badge-success">Mohon Tunggu Konfirmasi Admin</span>
+                                        <span class="badge badge-danger">Customer belum Mengupload Bukti Bayar</span>
                                         @endif
+                                        </td>
+                                        <td>
+                                            <button class="btn-md btn btn-primary" data-id="{{$t->id}}">Konfirmasi Pemesanan</button>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -52,7 +57,8 @@
                                         <th>Alamat Pengiriman</th>
                                         <th>Pesan</th>
                                         <th>Produk</th>
-                                        <th>Action</th>
+                                        <th>Bukti Bayar</th>
+                                        <th>Status</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -64,11 +70,95 @@
         </div>
     </div>
 </div>
+
+  <!-- Modal Produk-->
+  <div class="modal fade" id="modal-detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Transaksi Produk</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body table-responsive" id="modal-produk">
+            <table class="table table-bordered table-hover" >
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Foto Produk</th>
+                        <th>Nama Produk</th>
+                        <th>Harga Produk</th>
+                        <th>Jumlah Beli</th>
+                        <th>Total Harga</th>
+                    </tr>
+                </thead>
+                <tbody id="table-produk"></tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <h5 class="modal-title" id="total-nilai"></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Modal Kirim-->
+    <div class="modal fade" id="modal-detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Transaksi Produk</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body table-responsive" id="modal-produk">
+                
+            </div>
+            <div class="modal-footer">
+                <h5 class="modal-title" id="total-nilai"></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
 @stop
 @section('footer')
 <script>
     $('document').ready(function(){
         $('#table-transaksi').dataTable();
+        const url = "{{url('')}}";
+
+        /* produk view */
+        $('body').on('click','.btn-produk',function(){
+            const id = $(this).data('id');
+            fetch(`${url}/transaksi/produk/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                const {transaksi:[{cart}]} = data;
+                let html  = '';
+                let total = 0;
+                cart.map((data,index)=>{
+                    const {jumlah_beli,total_harga,produk:{nama_produk,gambar,harga}} = data;
+                    const image = gambar == null ? "{{url('images/noimage.jpg')}}" : "{{asset('images/produk')}}"+"/"+gambar;
+                    html += `
+                        <tr>
+                            <td>${++index}</td>
+                            <td><img src="${image}" width="50" alt="${nama_produk}" /></td>
+                            <td>${nama_produk}</td>
+                            <td>RP.${formatAngka(harga)}</td>
+                            <td>${jumlah_beli} Buah</td>
+                            <td>RP.${formatAngka(total_harga)}</td>
+                        </tr>`;
+                    total += parseInt(total_harga);
+                }); 
+                $('#table-produk').html(html);
+                $('#total-nilai').text(`Total Harga : ${formatAngka(total)}`);
+                $('#modal-detail').modal({backdrop:'static'});
+            });
+        })
+
 
     })
 </script>

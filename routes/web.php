@@ -48,11 +48,13 @@ Route::middleware(['customer'])->group(function () {
 
     /* Order */
     Route::get('transaksi',[transaksiController::class,'indexTransaksi']);
-    Route::get('transaksi/produk/{id}',[transaksiController::class,'produkAmbil']);
     Route::post('konfirmasi/order',[transaksiController::class,'orderConfirmation'])->name('konfirmasi.order');
     Route::get('transaksi/pdf/{id}',[transaksiController::class,'pdfTransaksi']);
     Route::post('transaksi/upload/bukti',[transaksiController::class,'uploadBukti']);
 });
+
+Route::get('transaksi/produk/{id}',[transaksiController::class,'produkAmbil']);
+
 
 /* admin dashboard */
 Route::middleware(['auth'])->group(function () {
