@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\{AuthController};
 
 use App\Http\Controllers\{
     homeController,produkController,customerController,
-    transaksiController
+    transaksiController,userController
 };
 
 
@@ -97,6 +97,12 @@ Route::middleware(['auth'])->group(function () {
         /* Selesai */
         Route::get('selesai',[transaksiController::class,'indexAdminSelesai']);
     });
+
+     /* ubah profile dan Password */
+    Route::get('ubah/password',[userController::class,'ubahPassword']);
+    Route::post('simpan/ubahPassword',[userController::class,'simpanUbahPassword'])->name('simpan.ubahPassword');
+    Route::get('ubah/profile',[userController::class,'ubahProfile']);
+    Route::post('simpan/user/profile',[userController::class,'simpanUbahProfile'])->name('simpan.user.ubah');
 
 });
 

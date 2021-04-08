@@ -11,6 +11,7 @@
         <h4>Merk  : {{$produk->merk->nama_merk}}</h4>
         <h4>Warna : {{$produk->warna}}</h4>
         <h5>Rp.{{number_format($produk->harga,0,'','.')}}</h5>
+        Stok : {{$produk->stok}} <br><br>
         Spesifikasi <br> <hr>
         <p>{{$produk->spesifikasi}}</p>
         Keterangan <br><hr>

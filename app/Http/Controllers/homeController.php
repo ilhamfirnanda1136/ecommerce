@@ -10,7 +10,10 @@ class homeController extends Controller
 {
     public function index()
     {
-        return view('admin.home.home_view');
+        $customer = \App\Models\customer::all();
+        $produk = \App\Models\produk::all();
+        $transaksi = \App\Models\Transaksi::all();
+        return view('admin.home.home_view',compact('customer','produk','transaksi'));
     }
     
     public function indexCustomer(Request $request)
