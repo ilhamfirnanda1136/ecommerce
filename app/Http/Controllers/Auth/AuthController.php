@@ -76,10 +76,9 @@ class AuthController extends Controller
             'kode_pos' => 'required'
         ]);
         if ($validator->fails()) return response()->json(['errors'=>$validator->errors()]);
-        $customer = customer::create($request->except(['password']));
-        $customer->uuid = Str::uuid();
-        $customer->password = Hash::make($request->password);
-        $customer->save();
+        // $request->password =;
+        $request->request->add(['uuid'=>Str::uuid(),'password'=>Hash::make($request->password)]);
+        $customer = customer::create(array_merge($request->all()));
         Session::put('customer',$customer);
         $message = "anda telah berhasil melakukan registrasi sebagai customer";
         return response()->json(['success'=>$request->all(),'message'=>$message]);

@@ -101,7 +101,6 @@
                                                             <td>{{$t->pesan}}</td>
                                                             <td><button class="btn btn-md btn-primary btn-produk" data-id="{{$t->id}}">Total Produk</button></td>
                                                             <td> 
-                                                                <a href="{{url('transaksi/pdf/')}}/{{$t->id}}" target="_blank" class="btn btn-danger btn-md text-white"><i class="fa fa-download"></i>Laporan</a>
                                                                 <button class="btn btn-md btn-secondary btn-konfirmasi" data-id="{{$t->id}}" > Konfirmasi Sampai</button>
                                                             </td>
                                                           
@@ -125,7 +124,6 @@
                                                         <th>Alamat Pengiriman</th>
                                                         <th>Pesan</th>
                                                         <th>Produk</th>
-                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -145,9 +143,6 @@
                                                             <td>{{$t->alamat_pengiriman == null ? Session::get('customer')->alamat : $t->alamat_pengiriman}}</td>
                                                             <td>{{$t->pesan}}</td>
                                                             <td><button class="btn btn-md btn-primary btn-produk" data-id="{{$t->id}}">Total Produk</button></td>
-                                                            <td> 
-                                                                <a href="{{url('transaksi/pdf/')}}/{{$t->id}}" target="_blank" class="btn btn-danger btn-md text-white"><i class="fa fa-download"></i>Laporan</a>
-                                                            </td>
                                                           
                                                         </tr>
                                                         @endforeach
